@@ -25,7 +25,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>jp.ac.nig.ddbj.webapp.dstextsearch.Application</start-class>
-        <java.version>10</java.version>
+        <java.version>9</java.version>
         <main.basedir>${basedir}/../..</main.basedir>
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
     </properties>
