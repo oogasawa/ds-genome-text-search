@@ -2,163 +2,41 @@
 
 GFFファイルの検索とJBrowseとの連携
 
+## 更新履歴
 
+- version 0.2.0
+  - 基本的な機能を実装した。
+- version 0.1.0 
+  - Spring Boot ver.5 + Apache Tiles ver.3 でコンパイルが成功する最低限の雛形を作成。[Github, spring-boot-web-mvc-tiles3 (2014)](https://github.com/mmeany/spring-boot-web-mvc-tiles3)をベースにしてパッケージ名などを調整した。
 
-# 作業記録
+## インストール方法
 
-## 要約
+### 前提
 
-1. <a href="docs/choosing_framework.md">フレームワークの選定</a>
-  - Spring Boot (ver.5) + Apache Tiles (ver 3)の系を使うことにした。
-2. テンプレートの選定
-  - microserviceの形となっていて、ドキュメントも必要な分記載されている以下のプロジェクトからスタートすることにした。
-  - [Github, spring-boot-web-mvc-tiles3 (2014)](https://github.com/mmeany/spring-boot-web-mvc-tiles3)
-  - ただし、Java9からJavaEEのAPIがガラッと変わったためそのままでは動かなかった。
-    - pom.xmlファイル中のspring-boot-starter-parentのバージョンを1系から2系にあげることで解決した。
-3. 開発の開始
+- Java version 10
+- Apache maven version 3.5.3
+- git (version 2.15.2)
 
+### コンパイル方法
 
-
-
-開発内容
-
-1. プロジェクト名、パッケージ名などの調整とコンパイル確認。
-2. 検索フォームを表示する。
-3. 全文検索（正規表現）の実装
-4. JBrowseへのリンクの作成
-5. その他細かいこと
-  - 検索フォームをヘッダへ。フッタはいらないかな。 ... ok!
-  - 正規表現の"case-insensitive"への対応 ... ok!
-  - <title>を直す。...ok!
-  - ゲノムブラウザの表示範囲確認 ... ok! 
-  - 設定を設定ファイルから読み込むようにする。 ... ok!
-  - resetボタンを効かせる。 ... ok!
-  - CSSの適用
-    - 行ずれを防ぐ ... ok!
-	- JBrowseへのリンクをなんとかする
-	  - http://olivero.info/bari/h/hyperlink-button-icon/
-	  - ロイヤリティーの問題の解消
-6. 全体の調整 => リリース
-  - トップページつくる
-  - DS text searchのドキュメントを作る
-  - rgm12のコンテナの中にDS text searchをインストール
-  - コンテナをリリース (rgm01にWebサーバー立ててrgm22をマウントしとけばいいんでしょ)
-  - CSS: 全体配置
-6. JBrowseのプラグイン (Dojoの勉強)
-
-
-
-
-## CSSの適用
-
-- トップページ作成 -- ?? JBrowseにメニューを追加する方が良いのでは？
-- そのためにはプラグインシステムを解読しないといけない。頑張ってもいいが、解読には時間がかかるから、後の話。
-
-そうするとまずはトップページか。トップページは一定以上凝らなくていい。小平さんのこれでいいや。
-
-text searchにCSS適用 <= 適用してみたがあまり効果なし。配置に関するCSSが効いてないからでしょう。
-
-- CSSの勉強からですな。。<= 後回し。
-
-
-
-
-## Apache Tiles
-
-### 参考文献
-
-Spring5 + tilesのtutorialとしては以下の記事がある。
-
-- [Bealdung, Apache Tiles Integration with Spring MVC (2018)](https://www.baeldung.com/spring-mvc-apache-tiles)
-
-
-- [Github, spring-boot-web-mvc-tiles3 (2014)](https://github.com/mmeany/spring-boot-web-mvc-tiles3)
-
-
-
-
-結局
-以下をテンプレートとして使うこととした。
-
-[Github, spring-boot-web-mvc-tiles3 (2014)](https://github.com/mmeany/spring-boot-web-mvc-tiles3)
-
-ポイントは以下の通り。
-
-- ドキュメントが十分書いてある。
-- そのままだとwarファイルができるが、これをtomcat配下に入れるのではなくmicroservice的にwarの中にtomcatが入る形になっている。
-- Java9からJavaEEの構成が変わってしまったため、そのままではJava9以降のJDKでは動かない。
-  - https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
-  - このエラーが起こらないようにするには、spring-boot-starter-parentのバージョンを2.x系統にあげればよい。
-  
-pom.xmlを修正
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
+	git clone http://gitlab.ddbj.nig.ac.jp/oogasawa/ds-text-search
+	cd ds-text-search
+	mvn -Dmaven.test.skip=true clean package
 	
-    <groupId>com.mvmlabs.spring-boot-play</groupId>
-    <artifactId>spring-boot-web-mvc-tiles3</artifactId>
-    <version>1.0</version>
-    <packaging>jar</packaging>
+これによりtargetディレクトリの下にds-text-search-0.2.0.jarファイルが生成される。
 
+### 起動方法
 
-コンパイル
+以下のコマンドでds-text-searchが動作するwebサーバーが8080番ポートで起動する。
 
-    mvn -Dmaven.test.skip=true clean package
+    java -jar target/ds-text-search-0.2.0.jar \
+	    --server.port=8080 \
+		--datafile=/home/your-account/your-data.gff3
 
-実行
-
-    java -jar target\spring-boot-web-mvc-tiles3-1.0.war --debug
-
-pom.xmlのなかで拡張子をwarと指定してある。これをjarに直せば、いわゆるmicroserviceのお作法通りとなる。
-
-
-これで動作した!!
-
-Confirm static content can be accessed:
-
-    http://localhost:8080/static/index.html
-    http://localhost:8080/index.html
-
-Note: The first URL above demostrates Spring Boot mapping of static resources The second URL above demonstrates default index.html mapping provided by Spring Boot
-
-Confirm that Spring MVC has been configured as expected
-
-    http://localhost:8080/home
-    http://localhost:8080/greet?name=Mark
-    http://localhost:8080/greet/Mark
-
-All done here.
-
-
-## トップ画面を作る
-
-### http://localhost:8080/ でトップ画面が出るようにする。
-
-Controllerを書く。
-
-	@Controller
-	public class GreetingController {
-		private Log log = LogFactory.getLog(this.getClass());
-
-		@RequestMapping(value = "/", method=RequestMethod.GET)
-		public String home() {
-			return "site.homepage";
-		}
-
-
-		@RequestMapping(value = "/search", method={GET, POST})
-		public ModelAndView search {
-
-			return new ModelAndView("site.greeting", "name", name);
-		}
-	}
+あとはブラウザで http://localhost:8080/search にアクセスすれば良い。
 
 
 
 
-- タイトル、検索フォーム、submit, resetボタン
+
 
