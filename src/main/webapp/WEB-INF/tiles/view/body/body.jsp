@@ -7,7 +7,7 @@
 
 <c:forEach var="resultInfo" items="${resultInfoList}">
 <tr>
-<td width="150" align="left">
+<td>
 <a href="${resultInfo.jbrowseUrl}">
 <img src="/static/images/506708890-612x612.jpg" width="30" height="30" />
 </a>

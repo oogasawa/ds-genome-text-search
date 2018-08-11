@@ -14,7 +14,7 @@
 
     <groupId>jp.ac.nig.ddbj</groupId>
     <artifactId>ds-text-search</artifactId>
-    <version>0.2</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <name>spring-boot-web-mvc</name>
