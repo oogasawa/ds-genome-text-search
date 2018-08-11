@@ -1,7 +1,14 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
-	<head>
-		<title><tiles:getAsString name="title" /></title>
+  <head>
+    <title>DS Text Search</title>
+
+    <style>
+      table tr:hover {
+        background-color: #FFCC99;  /* mouse over */
+      }
+    </style>
+
 	</head>
 	<body>
 		<!-- Header -->

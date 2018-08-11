@@ -16,11 +16,11 @@
 	<!-- Pages -->	
 	
 	<definition name="site.homepage" extends="layout.basic">
-		<put-attribute name="body" value="/WEB-INF/tiles/view/home/home.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/view/body/body.jsp" />
 	</definition>
 	
 	<definition name="site.greeting" extends="layout.basic">
-		<put-attribute name="body" value="/WEB-INF/tiles/view/home/greeting.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/view/body/greeting.jsp" />
 	</definition>
 	
 </tiles-definitions>
