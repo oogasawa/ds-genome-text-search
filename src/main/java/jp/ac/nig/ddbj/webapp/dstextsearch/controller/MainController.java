@@ -37,7 +37,7 @@ public class MainController {
 	String datafile;
 
 
-    @RequestMapping(value = "/search", method={GET,POST})
+    @RequestMapping(value = "/search", method=GET)
 	public ModelAndView home(@RequestParam(value="query", defaultValue="") String query,
 							 @RequestParam(value="case", defaultValue="insensitive") String regexMode) {
 

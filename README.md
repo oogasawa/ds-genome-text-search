@@ -25,7 +25,7 @@ GFFファイルの検索とJBrowseとの連携
 	
 これによりtargetディレクトリの下にds-text-search-0.2.0.jarファイルが生成される。
 
-### 起動方法
+## 起動方法
 
 以下のコマンドでds-text-searchが動作するwebサーバーが8080番ポートで起動する。
 
@@ -33,10 +33,23 @@ GFFファイルの検索とJBrowseとの連携
 	    --server.port=8080 \
 		--datafile=/home/your-account/your-data.gff3
 
-あとはブラウザで http://localhost:8080/search にアクセスすれば良い。
 
 
+## 使い方
 
+ブラウザで http://localhost:8080/search にアクセスすると以下のような画面が表示される。
+
+![docs/images/Screen001.png]
+
+- 検索語を何も指定しないとgff3ファイルの全データが表示される。
+- データにマウスオーバーすると行の背景色が反転する。
+- 右端のリンクアイコンをクリックするとJBrowserで該当箇所が表示される。
+
+
+![docs/images/Screen002.png]
+
+
+![docs/images/Screen003.png]
 
 
 

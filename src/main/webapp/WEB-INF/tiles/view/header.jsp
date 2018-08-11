@@ -4,7 +4,7 @@
 
 <div>
 <h1>DS Text Search</h1>
-<form action="/search" method="POST">
+<form action="/search" method="GET">
 <input type="text" id="query" name="query" size="40" value="${query}" autofocus />
 <input type="submit" value="submit" />
 <input type="button" value="clear" onclick="document.getElementById('query').value=''" />
