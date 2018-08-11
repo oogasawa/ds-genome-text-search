@@ -23,21 +23,21 @@ GFFファイルの検索とJBrowseとの連携
 	cd ds-text-search
 	mvn -Dmaven.test.skip=true clean package
 	
-これによりtargetディレクトリの下にds-text-search-0.2.0.jarファイルが生成される。
+これによりtargetディレクトリの下にjarファイルが生成される。
 
 ## 起動方法
 
-以下のコマンドでds-text-searchが動作するwebサーバーが8080番ポートで起動する。
+以下のコマンドでds-text-searchが動作するwebサーバーが8000番ポートで起動する。（デフォルトは8080)
 
     java -jar target/ds-text-search-0.2.0.jar \
-	    --server.port=8080 \
+	    --server.port=8000 \
 		--datafile=/home/your-account/your-data.gff3
 
 
 
 ## 使い方
 
-ブラウザで http://localhost:8080/search にアクセスすると以下のような画面が表示される。
+ブラウザで http://localhost:8000/search にアクセスすると以下のような画面が表示される。
 
 ![Screen001.png](docs/images/Screen001.png)
 
@@ -46,8 +46,12 @@ GFFファイルの検索とJBrowseとの連携
 - 右端のリンクアイコンをクリックするとJBrowserで該当箇所が表示される。
 
 
+検索語は正規表現で指定する。単に行全体に対して正規表現を探すので該当の文字列を入れるだけで文字列の途中のマッチを探すことができる。
+
 ![Screen002.png](docs/images/Screen002.png)
 
+
+メタキャラクタを使った正規表現の例は以下の通り。
 
 ![Screen003.png](docs/images/Screen003.png)
 
