@@ -39,17 +39,17 @@ GFFファイルの検索とJBrowseとの連携
 
 ブラウザで http://localhost:8080/search にアクセスすると以下のような画面が表示される。
 
-![docs/images/Screen001.png]
+![Screen001.png](docs/images/Screen001.png)
 
 - 検索語を何も指定しないとgff3ファイルの全データが表示される。
 - データにマウスオーバーすると行の背景色が反転する。
 - 右端のリンクアイコンをクリックするとJBrowserで該当箇所が表示される。
 
 
-![docs/images/Screen002.png]
+![Screen002.png](docs/images/Screen002.png)
 
 
-![docs/images/Screen003.png]
+![Screen003.png](docs/images/Screen003.png)
 
 
 
