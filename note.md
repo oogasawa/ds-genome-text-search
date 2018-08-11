@@ -105,7 +105,7 @@ pom.xmlを修正
 pom.xmlのなかで拡張子をwarと指定してある。これをjarに直せば、いわゆるmicroserviceのお作法通りとなる。
 
 
-これで動作した!!
+これで動作した.
 
 Confirm static content can be accessed:
 
@@ -125,18 +125,13 @@ All done here.
 
 ## トップ画面を作る
 
-### http://localhost:8080/ でトップ画面が出るようにする。
+### http://localhost:8080/search でトップ画面が出るようにする。
 
 Controllerを書く。
 
 	@Controller
 	public class GreetingController {
 		private Log log = LogFactory.getLog(this.getClass());
-
-		@RequestMapping(value = "/", method=RequestMethod.GET)
-		public String home() {
-			return "site.homepage";
-		}
 
 
 		@RequestMapping(value = "/search", method={GET, POST})
