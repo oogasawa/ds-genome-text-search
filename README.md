@@ -60,4 +60,12 @@ GFFファイルの検索とJBrowseとの連携
 ![Screen003.png](docs/images/Screen003.png)
 
 
+## 参考
+
+- [開発作業記録](docs/note.md)
+
+
+
+
+
 
