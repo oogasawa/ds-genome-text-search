@@ -5,6 +5,8 @@ GFFファイルの検索とJBrowseとの連携
 
 ## 更新履歴
 
+- version 0.2.1
+  - README.md, note.mdの修正
 - version 0.2.0
   - 基本的な機能を実装した。
 - version 0.1.0 
@@ -22,7 +24,7 @@ GFFファイルの検索とJBrowseとの連携
 
 	git clone http://gitlab.ddbj.nig.ac.jp/oogasawa/ds-text-search
 	cd ds-text-search
-	git checkout v0.2.0
+	git checkout v0.2.1
 	mvn -Dmaven.test.skip=true clean package
 	
 これによりtargetディレクトリの下にjarファイルが生成される。
