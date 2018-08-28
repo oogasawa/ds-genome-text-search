@@ -5,6 +5,8 @@ GFFファイルの検索とJBrowseとの連携
 
 ## 更新履歴
 
+- version 0.2.2
+  - パース処理でattribute中にスペースがあると以降行が途切れるバグを修正。
 - version 0.2.1
   - README.md, note.mdの修正
 - version 0.2.0
@@ -24,7 +26,7 @@ GFFファイルの検索とJBrowseとの連携
 
 	git clone http://gitlab.ddbj.nig.ac.jp/oogasawa/ds-text-search
 	cd ds-text-search
-	git checkout v0.2.1
+	git checkout v0.2.2
 	mvn -Dmaven.test.skip=true clean package
 	
 これによりtargetディレクトリの下にjarファイルが生成される。
