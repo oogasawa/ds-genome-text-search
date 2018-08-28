@@ -3,15 +3,17 @@ package jp.ac.nig.ddbj.webapp.dstextsearch.dao;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ResultInfo {
 
 
     String line = null;
 
-    String seqid;
-    String source;
-    String type;
+    String seqid = null;
+    String source = null;
+    String type   = null;
 
     long   start = 0L;
     long   end   = 0L;
@@ -24,28 +26,43 @@ public class ResultInfo {
     String attributes;
 
 
+    public boolean isNull() {
+        if (this.line == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    Pattern p = Pattern.compile("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(.+)");
+
     public void parse(String gff3_line) {
+
+        Matcher m = p.matcher(gff3_line);
 
         //this.line  = new String(gff3_line);
 
-        String[] cols = gff3_line.split("\\s+");
+        //String[] cols = gff3_line.split("\\s+");
 
-        if (cols == null || cols.length < 9)
-            return;
+        if (m.find()) {
 
-        this.seqid = cols[0];
-        this.source = cols[1];
-        this.type   = cols[2];
-        this.start = Long.valueOf(cols[3]);
-        this.end   = Long.valueOf(cols[4]);
-        this.score = cols[5];
-        this.strand = cols[6];
-        this.phase  = cols[7];
-        this.attributes = cols[8];
 
-        this.line = gff3_line;
+            this.seqid = m.group(1);
+            this.source = m.group(2);
+            this.type = m.group(3);
+            this.start = Long.valueOf(m.group(4));
+            this.end = Long.valueOf(m.group(5));
+            this.score = m.group(6);
+            this.strand = m.group(7);
+            this.phase = m.group(8);
+            this.attributes = m.group(9);
 
-        generateJBrowseUrl();
+            this.line = gff3_line;
+
+            generateJBrowseUrl();
+        }
     }
 
 
@@ -63,7 +80,7 @@ public class ResultInfo {
             value.append(String.valueOf(start));
             value.append("..");
             value.append(String.valueOf(end));
-            System.out.println(value.toString());
+            //System.out.println(value.toString());
             builder.append(URLEncoder.encode(value.toString(), "UTF-8"));
 
 
@@ -78,7 +95,7 @@ public class ResultInfo {
             value.append("\"start\":" + String.valueOf(start) + ",");
             value.append("\"end\":" + String.valueOf(end) + ",");
             value.append("\"type\":" + "\"match_part\"" + "}]}]");
-            System.out.println(value.toString());
+            //System.out.println(value.toString());
             builder.append(URLEncoder.encode(value.toString(), "UTF-8"));
 
 
@@ -87,7 +104,7 @@ public class ResultInfo {
             value.append("[{\"label\":\"textsearch\",\"key\":\"text search hits\",");
             value.append("\"type\":\"JBrowse/View/Track/CanvasFeatures\",");
             value.append("\"store\":\"url\",\"glyph\":\"JBrowse/View/FeatureGlyph/Segments\"}]");
-            System.out.println(value.toString());
+            //System.out.println(value.toString());
             builder.append(URLEncoder.encode(value.toString(), "UTF-8"));
 
 
@@ -98,7 +115,7 @@ public class ResultInfo {
                 + String.valueOf(start)
                 + ".."
                 + String.valueOf(end));
-            System.out.println(value.toString());
+            //System.out.println(value.toString());
             builder.append(URLEncoder.encode(value.toString(), "UTF-8"));
 
             this.jbrowseUrl = builder.toString();//URLEncoder.encode(builder.toString(), "UTF-8");
@@ -110,16 +127,6 @@ public class ResultInfo {
 
     }
 
-
-
-    public boolean isNull() {
-        if (this.line == null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
 
 

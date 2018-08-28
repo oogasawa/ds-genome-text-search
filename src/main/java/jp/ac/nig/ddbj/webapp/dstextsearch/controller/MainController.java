@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -54,26 +58,29 @@ public class MainController {
 
 		}
 
-		try (Scanner scanner = new Scanner(new File(datafile))) {
-			while (scanner.hasNext()) {
-				ResultInfo r = new ResultInfo();
-				String line = scanner.nextLine();
 
-				if (p != null) {
+		try (BufferedReader br = Files.newBufferedReader(Paths.get(datafile))) {
+    		String line = null;
+			while ((line = br.readLine())!= null) {
+
+
+				if (p != null) { // query.length > 0
 					Matcher m = p.matcher(line);
-					if (m.find()) {
+					if (m.find()) { // pattern matched to the line.
 						//System.out.println(line);
-						r.parse(line);
-						if (!r.isNull()) {
-							list.add(r);
+						ResultInfo resultInfo = new ResultInfo();
+						resultInfo.parse(line);
+						if (!resultInfo.isNull()) {
+							list.add(resultInfo);
 							//System.out.println(r.getLine());
 						}
 					}
 				}
 				else {
-					r.parse(line);
-					if (!r.isNull()) {
-						list.add(r);
+					ResultInfo resultInfo = new ResultInfo();
+					resultInfo.parse(line);
+					if (!resultInfo.isNull()) {
+						list.add(resultInfo);
 						//System.out.println(r.getLine());
 					}
 				}
@@ -82,7 +89,10 @@ public class MainController {
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 
 		TreeMap<String, Object> model = new TreeMap<>();
 		model.put("resultInfoList", list);
